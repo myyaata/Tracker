@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3242A29D304F0B0100677B1F /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3242A29C304F0AD800677B1F /* Tracker.swift */; };
+		3242A2A1304F0B2B00677B1F /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3242A2A0304F0B2A00677B1F /* TrackerRecord.swift */; };
+		324A8FFC30597F94006C7EE9 /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324A8FFB30597F8B006C7EE9 /* WeekDay.swift */; };
+		324A90013061643D006C7EE9 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3242A29E304F0B1C00677B1F /* TrackerCategory.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		3242A1F63046F4D100677B1F /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3242A29C304F0AD800677B1F /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		3242A29E304F0B1C00677B1F /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
+		3242A2A0304F0B2A00677B1F /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
+		324A8FFB30597F8B006C7EE9 /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,6 +56,7 @@
 		3242A1ED3046F4D100677B1F = {
 			isa = PBXGroup;
 			children = (
+				3242A26F304F0A6C00677B1F /* Models */,
 				3242A1F83046F4D100677B1F /* Tracker */,
 				3242A1F73046F4D100677B1F /* Products */,
 			);
@@ -56,6 +68,17 @@
 				3242A1F63046F4D100677B1F /* Tracker.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3242A26F304F0A6C00677B1F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				324A8FFB30597F8B006C7EE9 /* WeekDay.swift */,
+				3242A2A0304F0B2A00677B1F /* TrackerRecord.swift */,
+				3242A29E304F0B1C00677B1F /* TrackerCategory.swift */,
+				3242A29C304F0AD800677B1F /* Tracker.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +155,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3242A2A1304F0B2B00677B1F /* TrackerRecord.swift in Sources */,
+				324A8FFC30597F94006C7EE9 /* WeekDay.swift in Sources */,
+				324A90013061643D006C7EE9 /* TrackerCategory.swift in Sources */,
+				3242A29D304F0B0100677B1F /* Tracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,9 +177,8 @@
 				INFOPLIST_FILE = Tracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -161,6 +187,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = by.arisha.Tracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -182,9 +212,8 @@
 				INFOPLIST_FILE = Tracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -193,6 +222,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = by.arisha.Tracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
