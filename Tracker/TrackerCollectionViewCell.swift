@@ -99,14 +99,14 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with tracker: Tracker, isCompleted: Bool, completedDaysCount: Int, isFutureDate: Bool) {
-        cardView.backgroundColor = UIColor(named: tracker.color)
+        cardView.backgroundColor = UIColor(named: tracker.colorName)
         emojiLabel.text = tracker.emoji
         nameLabel.text = tracker.name
         counterLabel.text = pluralizedDaysString(completedDaysCount)
         let imageName = isCompleted ? "checkmark" : "plus"
         let config = UIImage.SymbolConfiguration(pointSize: 10, weight: .bold)
         completeButton.setImage(UIImage(systemName: imageName, withConfiguration: config), for: .normal)
-        completeButton.backgroundColor = UIColor(named: tracker.color)
+        completeButton.backgroundColor = UIColor(named: tracker.colorName)
         if isFutureDate {
             completeButton.alpha = 0.3
         } else {

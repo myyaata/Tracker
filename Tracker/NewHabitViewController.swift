@@ -183,7 +183,7 @@ final class NewHabitViewController: UIViewController {
         let tracker = Tracker(
             id: UUID(),
             name: trimmedName,
-            color: Defaults.colorName,
+            colorName: Defaults.colorName,
             emoji: Defaults.emoji,
             schedule: WeekDay.mondayFirst.filter { schedule.contains($0) }
         )
