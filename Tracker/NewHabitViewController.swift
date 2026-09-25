@@ -66,7 +66,7 @@ final class NewHabitViewController: UIViewController {
     private func setupNameField() {
         nameTextField.attributedPlaceholder = NSAttributedString(
             string: "Введите название трекера",
-            attributes: [.foregroundColor: UIColor(named: "Gray")]
+            attributes: [.foregroundColor: UIColor(named: "Gray") ?? .gray]
         )
         nameTextField.font = .systemFont(ofSize: 17)
         nameTextField.textColor = UIColor(named: "Black [day]")
