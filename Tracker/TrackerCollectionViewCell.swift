@@ -9,6 +9,7 @@ import UIKit
 
 protocol TrackerCellDelegate: AnyObject {
     func trackerCellDidTapCompleteButton(_ cell: TrackerCollectionViewCell)
+    func trackerCellDidTapCard(_ cell: TrackerCollectionViewCell)
 }
 
 final class TrackerCollectionViewCell: UICollectionViewCell {
@@ -37,6 +38,8 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         cardView.layer.cornerRadius = 16
         cardView.clipsToBounds = true
         cardView.translatesAutoresizingMaskIntoConstraints = false
+        cardView.isUserInteractionEnabled = true
+        cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapCard)))
         contentView.addSubview(cardView)
         
         let emojiBackground = UIView()
@@ -117,6 +120,10 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     
     @objc private func completeButtonTapped() {
         delegate?.trackerCellDidTapCompleteButton(self)
+    }
+    
+    @objc private func didTapCard() {
+        delegate?.trackerCellDidTapCard(self)
     }
     
     private func pluralizedDaysString(_ count: Int) -> String {

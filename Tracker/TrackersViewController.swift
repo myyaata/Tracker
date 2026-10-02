@@ -325,4 +325,10 @@ extension TrackersViewController: TrackerCellDelegate {
         toggleCompletion(for: tracker)
         collectionView.reloadItems(at: [indexPath])
     }
+    
+    func trackerCellDidTapCard(_ cell: TrackerCollectionViewCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        let tracker = visibleCategories[indexPath.section].trackers[indexPath.item]
+        print(tracker.name)
+    }
 }
