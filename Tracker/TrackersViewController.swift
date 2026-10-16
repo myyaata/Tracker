@@ -21,6 +21,10 @@ final class TrackersViewController: UIViewController {
     
     // MARK: - Data
     
+    private let trackerStore = TrackerStore()
+    private let categoryStore = TrackerCategoryStore()
+    private let recordStore = TrackerRecordStore()
+    
     private var categories: [TrackerCategory] = []
     private var completedTrackers: [TrackerRecord] = []
     
@@ -51,6 +55,11 @@ final class TrackersViewController: UIViewController {
         setupCollectionView()
         setupEmptyState()
         updateEmptyState()
+        
+        trackerStore.delegate = self
+        categoryStore.delegate = self
+        recordStore.delegate = self
+        reloadFromStores()
     }
     
     // MARK: - Navigation bar
@@ -218,12 +227,16 @@ final class TrackersViewController: UIViewController {
     }
     
     private func addTracker(_ tracker: Tracker) {
-        if let index = categories.firstIndex(where: { $0.title == defaultCategoryTitle }) {
-            let old = categories[index]
-            categories[index] = TrackerCategory(title: old.title, trackers: old.trackers + [tracker])
-        } else {
-            categories.append(TrackerCategory(title: defaultCategoryTitle, trackers: [tracker]))
+        do {
+            try trackerStore.addNewTracker(tracker, categoryTitle: defaultCategoryTitle)
+        } catch {
+            print("Не удалось добавить трекер: \(error)")
         }
+    }
+    
+    private func reloadFromStores() {
+        categories = categoryStore.fetchCategories()
+        completedTrackers = recordStore.fetchRecords()
         collectionView.reloadData()
         updateEmptyState()
     }
@@ -246,12 +259,18 @@ final class TrackersViewController: UIViewController {
     
     private func toggleCompletion(for tracker: Tracker) {
         guard !isSelectedDateInFuture() else { return }
-        if let index = completedTrackers.firstIndex(where: {
-            $0.id == tracker.id && Calendar.current.isDate($0.date, inSameDayAs: selectedDate)
-        }) {
-            completedTrackers.remove(at: index)
+        if isTrackerCompleted(tracker) {
+            do {
+                try recordStore.deleteRecord(TrackerRecord(id: tracker.id, date: selectedDate))
+            } catch {
+                print("Не удалось снять отметку: \(error)")
+            }
         } else {
-            completedTrackers.append(TrackerRecord(id: tracker.id, date: selectedDate))
+            do {
+                try recordStore.addNewRecord(TrackerRecord(id: tracker.id, date: selectedDate))
+            } catch {
+                print("Не удалось поставить отметку: \(error)")
+            }
         }
     }
 }
@@ -323,6 +342,20 @@ extension TrackersViewController: TrackerCellDelegate {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         let tracker = visibleCategories[indexPath.section].trackers[indexPath.item]
         toggleCompletion(for: tracker)
-        collectionView.reloadItems(at: [indexPath])
+    }
+}
+
+// MARK: - StoreDelegate
+extension TrackersViewController: TrackerStoreDelegate, TrackerCategoryStoreDelegate, TrackerRecordStoreDelegate {
+    func trackerStoreDidUpdate() {
+        reloadFromStores()
+    }
+    
+    func trackerCategoryStoreDidUpdate() {
+        reloadFromStores()
+    }
+    
+    func trackerRecordStoreDidUpdate() {
+        reloadFromStores()
     }
 }
