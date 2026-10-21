@@ -6,34 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		3242A29D304F0B0100677B1F /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3242A29C304F0AD800677B1F /* Tracker.swift */; };
-		3242A2A1304F0B2B00677B1F /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3242A2A0304F0B2A00677B1F /* TrackerRecord.swift */; };
-		324A8FFC30597F94006C7EE9 /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324A8FFB30597F8B006C7EE9 /* WeekDay.swift */; };
-		324A90013061643D006C7EE9 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3242A29E304F0B1C00677B1F /* TrackerCategory.swift */; };
-		324A90EB307907DA006C7EE9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324A90EA307907DA006C7EE9 /* CoreDataStack.swift */; };
-		324A912E307E7B09006C7EE9 /* TrackerRecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324A912D307E7AD6006C7EE9 /* TrackerRecordStore.swift */; };
-		324A912F307E7B0D006C7EE9 /* TrackerCategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324A912C307E7AC2006C7EE9 /* TrackerCategoryStore.swift */; };
-		324A9130307E7B11006C7EE9 /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324A912B307E7AB7006C7EE9 /* TrackerStore.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		3242A1F63046F4D100677B1F /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3242A29C304F0AD800677B1F /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
-		3242A29E304F0B1C00677B1F /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
-		3242A2A0304F0B2A00677B1F /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
-		324A8FFB30597F8B006C7EE9 /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
-		324A90EA307907DA006C7EE9 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		324A912B307E7AB7006C7EE9 /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
-		324A912C307E7AC2006C7EE9 /* TrackerCategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStore.swift; sourceTree = "<group>"; };
-		324A912D307E7AD6006C7EE9 /* TrackerRecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		3242A2083046F4D300677B1F /* Exceptions for "Tracker" folder in "Tracker" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Info.plist,
 			);
 			target = 3242A1F53046F4D100677B1F /* Tracker */;
 		};
@@ -64,11 +45,8 @@
 		3242A1ED3046F4D100677B1F = {
 			isa = PBXGroup;
 			children = (
-				324A912A307E7A49006C7EE9 /* Stores */,
-				324A90E9307907C1006C7EE9 /* CoreData */,
-				3242A26F304F0A6C00677B1F /* Models */,
-				3242A1F83046F4D100677B1F /* Tracker */,
 				3242A1F73046F4D100677B1F /* Products */,
+				3242A1F83046F4D100677B1F /* Tracker */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,35 +56,6 @@
 				3242A1F63046F4D100677B1F /* Tracker.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		3242A26F304F0A6C00677B1F /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				324A8FFB30597F8B006C7EE9 /* WeekDay.swift */,
-				3242A2A0304F0B2A00677B1F /* TrackerRecord.swift */,
-				3242A29E304F0B1C00677B1F /* TrackerCategory.swift */,
-				3242A29C304F0AD800677B1F /* Tracker.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		324A90E9307907C1006C7EE9 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				324A90EA307907DA006C7EE9 /* CoreDataStack.swift */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
-		324A912A307E7A49006C7EE9 /* Stores */ = {
-			isa = PBXGroup;
-			children = (
-				324A912D307E7AD6006C7EE9 /* TrackerRecordStore.swift */,
-				324A912C307E7AC2006C7EE9 /* TrackerCategoryStore.swift */,
-				324A912B307E7AB7006C7EE9 /* TrackerStore.swift */,
-			);
-			path = Stores;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,14 +132,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3242A2A1304F0B2B00677B1F /* TrackerRecord.swift in Sources */,
-				324A912E307E7B09006C7EE9 /* TrackerRecordStore.swift in Sources */,
-				324A8FFC30597F94006C7EE9 /* WeekDay.swift in Sources */,
-				324A90EB307907DA006C7EE9 /* CoreDataStack.swift in Sources */,
-				324A9130307E7B11006C7EE9 /* TrackerStore.swift in Sources */,
-				324A912F307E7B0D006C7EE9 /* TrackerCategoryStore.swift in Sources */,
-				324A90013061643D006C7EE9 /* TrackerCategory.swift in Sources */,
-				3242A29D304F0B0100677B1F /* Tracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,7 +147,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XU8X46BFZT;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tracker/Info.plist;
+				INFOPLIST_FILE = Tracker/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -241,7 +182,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XU8X46BFZT;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tracker/Info.plist;
+				INFOPLIST_FILE = Tracker/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
