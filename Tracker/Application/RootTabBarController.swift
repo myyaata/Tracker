@@ -8,15 +8,42 @@
 import UIKit
 
 final class RootTabBarController: UITabBarController {
+    private let trackerStore: TrackerStore
+    private let trackerCategoryStore: TrackerCategoryStore
+    private let trackerRecordStore: TrackerRecordStore
+    
+    init(trackerStore: TrackerStore, trackerCategoryStore: TrackerCategoryStore, trackerRecordStore: TrackerRecordStore) {
+        self.trackerStore = trackerStore
+        self.trackerCategoryStore = trackerCategoryStore
+        self.trackerRecordStore = trackerRecordStore
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabs()
         tabBar.tintColor = UIColor(named: "Blue")
         tabBar.unselectedItemTintColor = UIColor(named: "Gray")
+        setupAppearance()
+    }
+    
+    private func setupAppearance() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(named: "White [day]")
+        appearance.shadowColor = UIColor.black.withAlphaComponent(0.3)
+        
+        tabBar.scrollEdgeAppearance = appearance
+        tabBar.standardAppearance = appearance
     }
 
     private func setupTabs() {
-        let trackers = TrackersViewController()
+        let trackers = TrackersViewController(trackerStore: trackerStore, trackerCategoryStore: trackerCategoryStore, trackerRecordStore: trackerRecordStore)
         trackers.tabBarItem = UITabBarItem(
             title: "Трекеры",
             image: UIImage(systemName: "record.circle.fill")?.withRenderingMode(.alwaysTemplate),
