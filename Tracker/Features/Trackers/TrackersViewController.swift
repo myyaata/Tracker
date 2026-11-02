@@ -69,7 +69,6 @@ final class TrackersViewController: UIViewController {
         updateEmptyState()
         
         trackerStore.delegate = self
-        categoryStore.delegate = self
         recordStore.delegate = self
         reloadFromStores()
     }
@@ -172,7 +171,7 @@ final class TrackersViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 24),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -220,13 +219,11 @@ final class TrackersViewController: UIViewController {
     }
     
     // MARK: - Actions
-    
-    private let defaultCategoryTitle = "Важное"
-    
+        
     @objc private func addButtonTapped() {
-        let vc = NewHabitViewController()
-        vc.onCreate = { [weak self] tracker in
-            self?.addTracker(tracker)
+        let vc = NewHabitViewController(categoryStore: categoryStore)
+        vc.onCreate = { [weak self] tracker, category in
+            self?.addTracker(tracker, categoryTitle: category)
         }
         present(vc, animated: true)
     }
@@ -238,9 +235,9 @@ final class TrackersViewController: UIViewController {
         updateEmptyState()
     }
     
-    private func addTracker(_ tracker: Tracker) {
+    private func addTracker(_ tracker: Tracker, categoryTitle: String) {
         do {
-            try trackerStore.addNewTracker(tracker, categoryTitle: defaultCategoryTitle)
+            try trackerStore.addNewTracker(tracker, categoryTitle: categoryTitle)
         } catch {
             print("Не удалось добавить трекер: \(error)")
         }
@@ -358,12 +355,8 @@ extension TrackersViewController: TrackerCellDelegate {
 }
 
 // MARK: - StoreDelegate
-extension TrackersViewController: TrackerStoreDelegate, TrackerCategoryStoreDelegate, TrackerRecordStoreDelegate {
+extension TrackersViewController: TrackerStoreDelegate, TrackerRecordStoreDelegate {
     func trackerStoreDidUpdate() {
-        reloadFromStores()
-    }
-    
-    func trackerCategoryStoreDidUpdate() {
         reloadFromStores()
     }
     

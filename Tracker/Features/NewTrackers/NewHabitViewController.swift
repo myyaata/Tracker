@@ -11,13 +11,20 @@ final class NewHabitViewController: UIViewController {
     // MARK: - Output
     
     // Вызывается, когда пользователь нажал «Создать».
-    var onCreate: ((Tracker) -> Void)?
+    var onCreate: ((Tracker, String) -> Void)?
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
     private let emojis = ["🙂","😻","🌺","🐶","❤️","😱","😇","😡","🥶","🤔","🙌","🍔","🥦","🏓","🥇","🎸","🏝️","😪"]
     private let colorNames = (1...18).map { "Color selection \($0)" }
+    
+    private var chosenCategory: String? {
+        didSet {
+            tableView.reloadData()
+            updateCreateButtonState()
+        }
+    }
     
     private var chosenEmoji: String? {
         didSet {
@@ -26,11 +33,24 @@ final class NewHabitViewController: UIViewController {
         }
     }
     
+    
     private var chosenColorName: String? {
         didSet {
             colorCollectionView.reloadData()
             updateCreateButtonState()
         }
+    }
+    
+    private let categoryStore: TrackerCategoryStore
+    
+    init(categoryStore: TrackerCategoryStore) {
+        self.categoryStore = categoryStore
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        nil
     }
     
     // MARK: - State
@@ -118,7 +138,7 @@ final class NewHabitViewController: UIViewController {
         view.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 26),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 27),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
@@ -165,7 +185,7 @@ final class NewHabitViewController: UIViewController {
         contentView.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 24),
+            tableView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 38),
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             tableView.heightAnchor.constraint(equalToConstant: CGFloat(SettingsRow.allCases.count) * 75)
@@ -269,7 +289,7 @@ final class NewHabitViewController: UIViewController {
     }
     
     private func updateCreateButtonState() {
-        let isReady = !trimmedName.isEmpty && !schedule.isEmpty && chosenColorName != nil && chosenEmoji != nil
+        let isReady = !trimmedName.isEmpty && !schedule.isEmpty && chosenColorName != nil && chosenEmoji != nil && chosenCategory != nil
         createButton.isEnabled = isReady
         createButton.backgroundColor = isReady ? UIColor(named: "Black [day]") : UIColor(named: "Gray")
     }
@@ -297,7 +317,7 @@ final class NewHabitViewController: UIViewController {
     }
     
     @objc private func createTapped() {
-        guard !trimmedName.isEmpty, !schedule.isEmpty, let colorName = chosenColorName, let emoji = chosenEmoji else { return }
+        guard !trimmedName.isEmpty, !schedule.isEmpty, let category = chosenCategory, let colorName = chosenColorName, let emoji = chosenEmoji else { return }
         
         let tracker = Tracker(
             id: UUID(),
@@ -306,8 +326,16 @@ final class NewHabitViewController: UIViewController {
             emoji: emoji,
             schedule: WeekDay.mondayFirst.filter { schedule.contains($0) }
         )
-        onCreate?(tracker)
+        onCreate?(tracker, category)
         dismiss(animated: true)
+    }
+    
+    private func showCategories() {
+        let viewModel = CategoriesViewModel(store: categoryStore, selectedTitle: chosenCategory)
+        viewModel.onCategorySelected = { [weak self] title in
+            self?.chosenCategory = title
+        }
+        present(CategoriesViewController(viewModel: viewModel), animated: true)
     }
     
     private func showSchedule() {
@@ -335,7 +363,7 @@ extension NewHabitViewController: UITableViewDataSource {
         cell.textLabel?.font = .systemFont(ofSize: 17)
         cell.detailTextLabel?.font = .systemFont(ofSize: 17)
         cell.detailTextLabel?.textColor = UIColor(named: "Gray")
-        cell.detailTextLabel?.text = row == .schedule ? scheduleSubtitle : nil
+        cell.detailTextLabel?.text = row == .schedule ? scheduleSubtitle : chosenCategory
         if indexPath.row < SettingsRow.allCases.count - 1 { cell.addSeparator() }
         return cell
     }
@@ -351,7 +379,7 @@ extension NewHabitViewController: UITableViewDelegate {
         guard let row = SettingsRow(rawValue: indexPath.row) else { return }
         switch row {
         case .category:
-            break
+            showCategories()
         case .schedule:
             showSchedule()
         }

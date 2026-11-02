@@ -11,6 +11,11 @@ protocol TrackerCategoryStoreDelegate: AnyObject {
     func trackerCategoryStoreDidUpdate()
 }
 
+enum TrackerCategoryStoreError: Error
+{
+    case duplicateTitle
+}
+
 final class TrackerCategoryStore: NSObject {
     private let context: NSManagedObjectContext
     weak var delegate: TrackerCategoryStoreDelegate?
@@ -32,7 +37,7 @@ final class TrackerCategoryStore: NSObject {
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            assertionFailure("Failed to fetch trackers: \(error)")
+            assertionFailure("Failed to fetch categories: \(error)")
         }
         return fetchedResultsController
     }()
@@ -45,6 +50,18 @@ final class TrackerCategoryStore: NSObject {
             let trackers = trackersCoreData.sorted { ($0.name ?? "") < ($1.name ?? "" ) }.compactMap{ $0.toTracker() }
             return TrackerCategory(title: title, trackers: trackers)
         }
+    }
+    
+    func addCategory(title: String) throws {
+        let title = title.trimmingCharacters(in: .whitespaces)
+        let categories = fetchCategories()
+        if categories.contains(where: { $0.title.lowercased() == title.lowercased() }) {
+            throw TrackerCategoryStoreError.duplicateTitle
+        }
+        
+        let category = TrackerCategoryCoreData(context: context)
+        category.title = title
+        try context.save()
     }
 }
 
