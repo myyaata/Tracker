@@ -18,6 +18,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     weak var delegate: TrackerCellDelegate?
     
     private let cardView = UIView()
+    var previewView: UIView { cardView }
     private let emojiLabel = UILabel()
     private let nameLabel = UILabel()
     private let counterLabel = UILabel()

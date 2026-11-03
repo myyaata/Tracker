@@ -15,6 +15,10 @@
 "trackers.search.placeholder" = "Поиск";
 "trackers.empty" = "Что будем отслеживать?";
 "trackers.notFound" = "Ничего не найдено";
+"trackers.menu.edit" = "Редактировать";
+"trackers.menu.delete" = "Удалить";
+"trackers.delete.confirm" = "Уверены что хотите удалить трекер?";
+"common.cancel" = "Отменить";
 
 /* Statistics */
 "statistics.title" = "Статистика";
@@ -29,6 +33,8 @@
 "newHabit.cancel" = "Отменить";
 "newHabit.create" = "Создать";
 "newHabit.everyDay" = "Каждый день";
+"newHabit.editTitle" = "Редактирование привычки";
+"newHabit.save" = "Сохранить";
 
 /* Schedule */
 "schedule.title" = "Расписание";

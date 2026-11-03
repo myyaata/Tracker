@@ -12,6 +12,10 @@
 "trackers.search.placeholder" = "Search";
 "trackers.empty" = "What would you like to track?";
 "trackers.notFound" = "Nothing found";
+"trackers.menu.edit" = "Edit";
+"trackers.menu.delete" = "Delete";
+"trackers.delete.confirm" = "Are you sure you want to delete this tracker?";
+"common.cancel" = "Cancel";
 "statistics.title" = "Statistics";
 "newHabit.title" = "New habit";
 "newHabit.name.placeholder" = "Enter tracker name";
@@ -22,6 +26,8 @@
 "newHabit.cancel" = "Cancel";
 "newHabit.create" = "Create";
 "newHabit.everyDay" = "Every day";
+"newHabit.editTitle" = "Edit habit";
+"newHabit.save" = "Save";
 "schedule.title" = "Schedule";
 "schedule.done" = "Done";
 "categories.title" = "Category";

@@ -356,6 +356,90 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         CGSize(width: collectionView.bounds.width, height: 18)
     }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        contextMenuConfigurationForItemsAt indexPaths: [IndexPath],
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        guard let indexPath = indexPaths.first else { return nil }
+        let tracker = visibleCategories[indexPath.section].trackers[indexPath.item]
+        
+        return UIContextMenuConfiguration(actionProvider: { [weak self] _ in
+            let edit = UIAction(title: NSLocalizedString("trackers.menu.edit", comment: "")) { _ in
+                self?.editTracker(tracker)
+            }
+            let delete = UIAction(
+                title: NSLocalizedString("trackers.menu.delete", comment: ""),
+                attributes: .destructive
+            ) { _ in
+                self?.confirmDelete(tracker)
+            }
+            return UIMenu(children: [edit, delete])
+        })
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        contextMenuConfiguration configuration: UIContextMenuConfiguration,
+        highlightPreviewForItemAt indexPath: IndexPath) -> UITargetedPreview? {
+        makePreview(for: indexPath)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        contextMenuConfiguration configuration: UIContextMenuConfiguration,
+        dismissalPreviewForItemAt indexPath: IndexPath) -> UITargetedPreview? {
+        makePreview(for: indexPath)
+    }
+    
+    private func makePreview(for indexPath: IndexPath) -> UITargetedPreview? {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? TrackerCollectionViewCell else { return nil }
+        return UITargetedPreview(view: cell.previewView)
+    }
+    
+    private func editTracker(_ tracker: Tracker) {
+        guard let categoryTitle = categories.first(where: { category in
+            category.trackers.contains { $0.id == tracker.id }
+        })?.title else { return }
+        let completedDays = completedDaysCount(for: tracker)
+        let newHabitVC = NewHabitViewController(
+            categoryStore: categoryStore,
+            mode: .edit(tracker: tracker, categoryTitle: categoryTitle, completedDays: completedDays)
+        )
+        newHabitVC.onCreate = { [weak self] updatedTracker, categoryTitle in
+            do {
+                try self?.trackerStore.updateTracker(updatedTracker, categoryTitle: categoryTitle)
+            } catch {
+                print("Не удалось обновить трекер: \(error)")
+            }
+        }
+        present(newHabitVC, animated: true)
+    }
+    
+    private func confirmDelete(_ tracker: Tracker) {
+        let alert = UIAlertController(
+            title: nil,
+            message: NSLocalizedString("trackers.delete.confirm", comment: ""),
+            preferredStyle: .actionSheet
+        )
+        alert.addAction(UIAlertAction(
+            title: NSLocalizedString("trackers.menu.delete", comment: ""),
+            style: .destructive
+        ) { [weak self] _ in
+            self?.deleteTracker(tracker)
+        })
+        alert.addAction(UIAlertAction(title: NSLocalizedString("common.cancel", comment: ""), style: .cancel))
+        present(alert, animated: true)
+    }
+    
+    private func deleteTracker(_ tracker: Tracker) {
+        do {
+            try trackerStore.deleteTracker(id: tracker.id)
+        } catch {
+            print("Не удалось удалить трекер: \(error)")
+        }
+    }
 }
 
 // MARK: - TrackerCellDelegate
