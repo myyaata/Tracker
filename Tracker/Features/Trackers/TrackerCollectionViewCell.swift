@@ -102,7 +102,9 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         cardView.backgroundColor = UIColor(named: tracker.colorName)
         emojiLabel.text = tracker.emoji
         nameLabel.text = tracker.name
-        counterLabel.text = pluralizedDaysString(completedDaysCount)
+        counterLabel.text = String.localizedStringWithFormat(
+            NSLocalizedString("days.count", comment: ""),
+            completedDaysCount)
         let imageName = isCompleted ? "checkmark" : "plus"
         let config = UIImage.SymbolConfiguration(pointSize: 10, weight: .bold)
         completeButton.setImage(UIImage(systemName: imageName, withConfiguration: config), for: .normal)
@@ -117,22 +119,5 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     
     @objc private func completeButtonTapped() {
         delegate?.trackerCellDidTapCompleteButton(self)
-    }
-    
-    private func pluralizedDaysString(_ count: Int) -> String {
-        let remainder100 = count % 100
-        let remainder10 = count % 10
-        
-        let word: String
-        if remainder100 >= 11 && remainder100 <= 14 {
-            word = "дней"
-        } else if remainder10 == 1 {
-            word = "день"
-        } else if remainder10 >= 2 && remainder10 <= 4 {
-            word = "дня"
-        } else {
-            word = "дней"
-        }
-        return "\(count) \(word)"
     }
 }

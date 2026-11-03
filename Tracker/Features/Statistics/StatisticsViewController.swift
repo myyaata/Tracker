@@ -11,7 +11,7 @@ final class StatisticsViewController: UIViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Статистика"
+        title = NSLocalizedString("statistics.title", comment: "")
         view.backgroundColor = .systemBackground
     }
 }

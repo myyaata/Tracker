@@ -1,0 +1,51 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by арина сильченко on 3.11.26.
+  
+*/
+
+"tabbar.trackers" = "Trackers";
+"tabbar.statistics" = "Statistics";
+"trackers.title" = "Trackers";
+"trackers.search.placeholder" = "Search";
+"trackers.empty" = "What would you like to track?";
+"statistics.title" = "Statistics";
+"newHabit.title" = "New habit";
+"newHabit.name.placeholder" = "Enter tracker name";
+"newHabit.category" = "Category";
+"newHabit.schedule" = "Schedule";
+"newHabit.emoji" = "Emoji";
+"newHabit.color" = "Color";
+"newHabit.cancel" = "Cancel";
+"newHabit.create" = "Create";
+"newHabit.everyDay" = "Every day";
+"schedule.title" = "Schedule";
+"schedule.done" = "Done";
+"categories.title" = "Category";
+"categories.empty" = "Habits and events can be\ngrouped by meaning";
+"categories.add" = "Add category";
+"categories.error.duplicate" = "This category already exists";
+"categories.error.save" = "Couldn't save the category";
+"newCategory.title" = "New category";
+"newCategory.placeholder" = "Enter category name";
+"newCategory.done" = "Done";
+"onboarding.page1" = "Track only what you want";
+"onboarding.page2" = "Even if it's not liters of water and yoga";
+"onboarding.button" = "Wow, technology!";
+"common.ok" = "OK";
+"weekday.short.monday" = "Mon";
+"weekday.short.tuesday" = "Tue";
+"weekday.short.wednesday" = "Wed";
+"weekday.short.thursday" = "Thu";
+"weekday.short.friday" = "Fri";
+"weekday.short.saturday" = "Sat";
+"weekday.short.sunday" = "Sun";
+"weekday.full.monday" = "Monday";
+"weekday.full.tuesday" = "Tuesday";
+"weekday.full.wednesday" = "Wednesday";
+"weekday.full.thursday" = "Thursday";
+"weekday.full.friday" = "Friday";
+"weekday.full.saturday" = "Saturday";
+"weekday.full.sunday" = "Sunday";

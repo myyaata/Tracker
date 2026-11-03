@@ -48,7 +48,7 @@ final class ScheduleViewController: UIViewController {
     
     // MARK: - Setup
     private func setupTitle() {
-        titleLabel.text = "Расписание"
+        titleLabel.text = NSLocalizedString("schedule.title", comment: "")
         titleLabel.font = .systemFont(ofSize: 16, weight: .medium)
         titleLabel.textColor = UIColor(named: "Black [day]")
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +61,7 @@ final class ScheduleViewController: UIViewController {
     }
     
     private func setupDoneButton() {
-        doneButton.setTitle("Готово", for: .normal)
+        doneButton.setTitle(NSLocalizedString("schedule.done", comment: ""), for: .normal)
         doneButton.setTitleColor(UIColor(named: "White [day]"), for: .normal)
         doneButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         doneButton.backgroundColor = UIColor(named: "Black [day]")

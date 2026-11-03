@@ -76,7 +76,7 @@ final class TrackersViewController: UIViewController {
     // MARK: - Navigation bar
     
     private func setupNavigationBar() {
-        title = "Трекеры"
+        title = NSLocalizedString("trackers.title", comment: "")
         navigationController?.navigationBar.prefersLargeTitles = true
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -89,7 +89,6 @@ final class TrackersViewController: UIViewController {
         
         datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "ru_RU")
         datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         
         let dateItem = UIBarButtonItem(customView: makeDateBadge())
@@ -135,7 +134,7 @@ final class TrackersViewController: UIViewController {
     // MARK: - Search bar
     
     private func setupSearchBar() {
-        searchBar.placeholder = "Поиск"
+        searchBar.placeholder = NSLocalizedString("trackers.search.placeholder", comment: "")
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
         searchBar.backgroundImage = UIImage()
@@ -189,7 +188,7 @@ final class TrackersViewController: UIViewController {
             emptyStateImageView.tintColor = .systemGray3
         }
         
-        emptyStateLabel.text = "Что будем отслеживать?"
+        emptyStateLabel.text = NSLocalizedString("trackers.empty", comment: "")
         emptyStateLabel.font = .systemFont(ofSize: 12, weight: .medium)
         emptyStateLabel.textColor = .label
         emptyStateLabel.textAlignment = .center

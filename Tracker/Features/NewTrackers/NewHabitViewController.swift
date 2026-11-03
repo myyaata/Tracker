@@ -106,9 +106,9 @@ final class NewHabitViewController: UIViewController {
         var title: String {
             switch self {
             case .category:
-                return "Категория"
+                return NSLocalizedString("newHabit.category", comment: "")
             case .schedule:
-                return "Расписание"
+                return NSLocalizedString("newHabit.schedule", comment: "")
             }
         }
     }
@@ -131,7 +131,7 @@ final class NewHabitViewController: UIViewController {
     }
     
     private func setupTitle() {
-        titleLabel.text = "Новая привычка"
+        titleLabel.text = NSLocalizedString("newHabit.title", comment: "")
         titleLabel.font = .systemFont(ofSize: 16, weight: .medium)
         titleLabel.textColor = UIColor(named: "Black [day]")
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -145,7 +145,7 @@ final class NewHabitViewController: UIViewController {
     
     private func setupNameField() {
         nameTextField.attributedPlaceholder = NSAttributedString(
-            string: "Введите название трекера",
+            string: NSLocalizedString("newHabit.name.placeholder", comment: ""),
             attributes: [.foregroundColor: UIColor(named: "Gray") ?? .gray]
         )
         nameTextField.font = .systemFont(ofSize: 17)
@@ -193,7 +193,7 @@ final class NewHabitViewController: UIViewController {
     }
     
     private func setupEmojiCollectionView() {
-        emojiTitle.text = "Emoji"
+        emojiTitle.text = NSLocalizedString("newHabit.emoji", comment: "")
         emojiTitle.font = .systemFont(ofSize: 19, weight: .bold)
         emojiTitle.textColor = UIColor(named: "Black [day]")
         contentView.addSubview(emojiTitle)
@@ -211,7 +211,7 @@ final class NewHabitViewController: UIViewController {
     }
     
     private func setupColorCollectionView() {
-        colorsTitle.text = "Цвет"
+        colorsTitle.text = NSLocalizedString("newHabit.color", comment: "")
         colorsTitle.font = .systemFont(ofSize: 19, weight: .bold)
         colorsTitle.textColor = UIColor(named: "Black [day]")
         contentView.addSubview(colorsTitle)
@@ -230,7 +230,7 @@ final class NewHabitViewController: UIViewController {
     }
     
     private func setupButtons() {
-        cancelButton.setTitle("Отменить", for: .normal)
+        cancelButton.setTitle(NSLocalizedString("newHabit.cancel", comment: ""), for: .normal)
         cancelButton.setTitleColor(UIColor(named: "Red"), for: .normal)
         cancelButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         cancelButton.layer.cornerRadius = 16
@@ -239,7 +239,7 @@ final class NewHabitViewController: UIViewController {
         cancelButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
         
         createButton.backgroundColor = UIColor(named: "Black [day]")
-        createButton.setTitle("Создать", for: .normal)
+        createButton.setTitle(NSLocalizedString("newHabit.create", comment: ""), for: .normal)
         createButton.setTitleColor(UIColor(named: "White [day]"), for: .normal)
         createButton.setTitleColor(.white, for: .disabled)
         createButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
@@ -296,7 +296,7 @@ final class NewHabitViewController: UIViewController {
     
     private var scheduleSubtitle: String? {
         guard !schedule.isEmpty else { return nil }
-        if schedule.count == WeekDay.allCases.count { return "Каждый день" }
+        if schedule.count == WeekDay.allCases.count { return NSLocalizedString("newHabit.everyDay", comment: "") }
         return WeekDay.mondayFirst
             .filter { schedule.contains($0) }
             .map(\.shortTitle)

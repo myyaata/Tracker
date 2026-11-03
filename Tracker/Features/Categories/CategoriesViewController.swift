@@ -51,7 +51,7 @@ final class CategoriesViewController: UIViewController {
 
     private func setupButton() {
         addButton.backgroundColor = UIColor(named: "Black [day]")
-        addButton.setTitle("Добавить категорию", for: .normal)
+        addButton.setTitle(NSLocalizedString("categories.add", comment: ""), for: .normal)
         addButton.setTitleColor(UIColor(named: "White [day]"), for: .normal)
         addButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         addButton.layer.cornerRadius = 16
@@ -75,7 +75,7 @@ final class CategoriesViewController: UIViewController {
     }
     
     private func setupTitle() {
-        titleLabel.text = "Категория"
+        titleLabel.text = NSLocalizedString("categories.title", comment: "")
         titleLabel.font = .systemFont(ofSize: 16, weight: .medium)
         titleLabel.textColor = UIColor(named: "Black [day]")
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +113,7 @@ final class CategoriesViewController: UIViewController {
             emptyStateImageView.tintColor = .systemGray3
         }
         
-        emptyStateLabel.text = "Привычки и события можно\nобъединить по смыслу"
+        emptyStateLabel.text = NSLocalizedString("categories.empty", comment: "")
         emptyStateLabel.font = .systemFont(ofSize: 12, weight: .medium)
         emptyStateLabel.textColor = UIColor(named: "Black [day]")
         emptyStateLabel.textAlignment = .center
