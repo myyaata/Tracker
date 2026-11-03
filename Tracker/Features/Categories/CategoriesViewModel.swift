@@ -38,10 +38,15 @@ final class CategoriesViewModel {
         onCategorySelected?(title)
     }
     
-    func addCategory(title: String) {
+    func addCategory(title: String) -> String? {
         do {
             try store.addCategory(title: title)
-        } catch { print("Failed to add category: \(error)") }
+            return nil
+        } catch TrackerCategoryStoreError.duplicateTitle {
+            return "Такая категория уже есть"
+        } catch {
+            return "Не удалось сохранить категорию"
+        }
     }
 }
 

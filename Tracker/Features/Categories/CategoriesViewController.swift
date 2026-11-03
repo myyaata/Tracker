@@ -69,7 +69,7 @@ final class CategoriesViewController: UIViewController {
     @objc private func addCategoryButtonTapped() {
         let newCategoryVC = NewCategoryViewController()
         newCategoryVC.onDone = { [weak self] title in
-            self?.viewModel.addCategory(title: title)
+            self?.viewModel.addCategory(title: title) ?? nil
         }
         present(newCategoryVC, animated: true)
     }

@@ -17,13 +17,15 @@ final class CategoryCell: UITableViewCell {
         backgroundColor = UIColor(named: "Background [day]")
         titleLabel.textColor = UIColor(named: "Black [day]")
         titleLabel.font = .systemFont(ofSize: 17)
+        titleLabel.lineBreakMode = .byTruncatingTail
         selectionStyle = .none
         tintColor = UIColor(named: "Blue")
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
         ])
     }
     

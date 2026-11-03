@@ -8,7 +8,7 @@
 import UIKit
 
 final class NewCategoryViewController: UIViewController {
-    var onDone: ((String) -> Void)?
+    var onDone: ((String) -> String?)?
     private let titleLabel = UILabel()
     private let nameTextField = UITextField()
     private let doneButton = UIButton(type: .system)
@@ -94,8 +94,17 @@ final class NewCategoryViewController: UIViewController {
     }
 
     @objc private func doneTapped() {
-        onDone?(trimmedName)
-        dismiss(animated: true)
+        if let errorMessage = onDone?(trimmedName) ?? nil {
+            showError(errorMessage)
+        } else {
+            dismiss(animated: true)
+        }
+    }
+
+    private func showError(_ message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }
 
