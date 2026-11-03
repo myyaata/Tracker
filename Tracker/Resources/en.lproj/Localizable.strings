@@ -11,6 +11,7 @@
 "trackers.title" = "Trackers";
 "trackers.search.placeholder" = "Search";
 "trackers.empty" = "What would you like to track?";
+"trackers.notFound" = "Nothing found";
 "statistics.title" = "Statistics";
 "newHabit.title" = "New habit";
 "newHabit.name.placeholder" = "Enter tracker name";

@@ -215,6 +215,15 @@ final class TrackersViewController: UIViewController {
         let isEmpty = visibleCategories.isEmpty
         emptyStateStack.isHidden = !isEmpty
         collectionView.isHidden = isEmpty
+        guard isEmpty else { return }
+        
+        if searchText.isEmpty {
+            emptyStateImageView.image = UIImage(named: "trackers_empty_icon")
+            emptyStateLabel.text = NSLocalizedString("trackers.empty", comment: "")
+        } else {
+            emptyStateImageView.image = UIImage(named: "search_empty_icon")
+            emptyStateLabel.text = NSLocalizedString("trackers.notFound", comment: "")
+        }
     }
     
     // MARK: - Actions
@@ -295,9 +304,14 @@ extension TrackersViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         searchText = ""
+        searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
         collectionView.reloadData()
         updateEmptyState()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
     }
 }
 

@@ -14,6 +14,7 @@
 "trackers.title" = "Трекеры";
 "trackers.search.placeholder" = "Поиск";
 "trackers.empty" = "Что будем отслеживать?";
+"trackers.notFound" = "Ничего не найдено";
 
 /* Statistics */
 "statistics.title" = "Статистика";
