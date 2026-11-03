@@ -56,3 +56,8 @@
 "weekday.full.friday" = "Friday";
 "weekday.full.saturday" = "Saturday";
 "weekday.full.sunday" = "Sunday";
+"filters.title" = "Filters";
+"filters.all" = "All trackers";
+"filters.today" = "Trackers for today";
+"filters.completed" = "Completed";
+"filters.uncompleted" = "Not completed";

@@ -18,6 +18,13 @@ final class TrackersViewController: UIViewController {
     private let emptyStateLabel = UILabel()
     private let emptyStateStack = UIStackView()
     private var collectionView: UICollectionView!
+    private let filtersButton = UIButton(type: .system)
+    
+    private enum Layout {
+        static let filtersButtonHeight: CGFloat = 50
+        static let filtersButtonWidth: CGFloat = 114
+        static let filtersButtonBottomInset: CGFloat = 16
+    }
     
     // MARK: - Data
     
@@ -31,13 +38,21 @@ final class TrackersViewController: UIViewController {
     private var selectedDate: Date = Date()
     private var searchText: String = ""
     
+    private var currentFilter: TrackerFilter = .all
+    
     private var visibleCategories: [TrackerCategory] {
         let weekDay = WeekDay.from(date: selectedDate)
         return categories.compactMap { category -> TrackerCategory? in
             let filteredTrackers = category.trackers.filter { tracker in
                 let matchesSсhedule = tracker.schedule.isEmpty || tracker.schedule.contains(weekDay)
                 let matchesSearch = searchText.isEmpty || tracker.name.lowercased().contains(searchText.lowercased())
-                return matchesSсhedule && matchesSearch
+                let matchesFilter: Bool
+                switch currentFilter {
+                case .all, .today: matchesFilter = true
+                case .completed: matchesFilter = isTrackerCompleted(tracker)
+                case .uncompleted: matchesFilter = !isTrackerCompleted(tracker)
+                }
+                return matchesSсhedule && matchesSearch && matchesFilter
             }
             guard !filteredTrackers.isEmpty else { return nil }
             return TrackerCategory(title: category.title, trackers: filteredTrackers)
@@ -65,6 +80,7 @@ final class TrackersViewController: UIViewController {
         setupNavigationBar()
         setupSearchBar()
         setupCollectionView()
+        setupFiltersButton()
         setupEmptyState()
         updateEmptyState()
         
@@ -167,6 +183,7 @@ final class TrackersViewController: UIViewController {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: TrackerSectionHeaderView.reuseIdentifier
         )
+        collectionView.contentInset.bottom = Layout.filtersButtonHeight + Layout.filtersButtonBottomInset * 2
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -212,22 +229,31 @@ final class TrackersViewController: UIViewController {
     }
     
     private func updateEmptyState() {
+        filtersButton.isHidden = !hasTrackersForSelectedDay
+
         let isEmpty = visibleCategories.isEmpty
         emptyStateStack.isHidden = !isEmpty
         collectionView.isHidden = isEmpty
         guard isEmpty else { return }
         
-        if searchText.isEmpty {
-            emptyStateImageView.image = UIImage(named: "trackers_empty_icon")
-            emptyStateLabel.text = NSLocalizedString("trackers.empty", comment: "")
-        } else {
+        if hasTrackersForSelectedDay {
             emptyStateImageView.image = UIImage(named: "search_empty_icon")
             emptyStateLabel.text = NSLocalizedString("trackers.notFound", comment: "")
+        } else {
+            emptyStateImageView.image = UIImage(named: "trackers_empty_icon")
+            emptyStateLabel.text = NSLocalizedString("trackers.empty", comment: "")
+        }
+    }
+    
+    private var hasTrackersForSelectedDay: Bool {
+        let weekDay = WeekDay.from(date: selectedDate)
+        return categories.contains { category in
+            category.trackers.contains { $0.schedule.isEmpty || $0.schedule.contains(weekDay) }
         }
     }
     
     // MARK: - Actions
-        
+    
     @objc private func addButtonTapped() {
         let vc = NewHabitViewController(categoryStore: categoryStore)
         vc.onCreate = { [weak self] tracker, category in
@@ -290,8 +316,48 @@ final class TrackersViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: - FilterButton
+    private func setupFiltersButton() {
+        filtersButton.setTitle(NSLocalizedString("filters.title", comment: ""), for: .normal)
+        filtersButton.setTitleColor(.white, for: .normal)
+        filtersButton.titleLabel?.font = .systemFont(ofSize: 17)
+        filtersButton.backgroundColor = UIColor(named: "Blue")
+        filtersButton.layer.cornerRadius = 16
+        filtersButton.addTarget(self, action: #selector(filtersButtonTapped), for: .touchUpInside)
+        
+        filtersButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(filtersButton)
+        NSLayoutConstraint.activate([
+            filtersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            filtersButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Layout.filtersButtonBottomInset),
+            filtersButton.widthAnchor.constraint(equalToConstant: Layout.filtersButtonWidth),
+            filtersButton.heightAnchor.constraint(equalToConstant: Layout.filtersButtonHeight)
+        ])
+    }
+    
+    @objc private func filtersButtonTapped() {
+        let vc = FiltersViewController(selectedFilter: currentFilter)
+        vc.onSelect = { [weak self] filter in
+            self?.applyFilter(filter)
+        }
+        present(vc, animated: true)
+    }
+    
+    private func applyFilter(_ filter: TrackerFilter) {
+        if filter == .today {
+            datePicker.date = Date()
+            selectedDate = datePicker.date
+            dateLabel.text = dateFormatter.string(from: selectedDate)
+            currentFilter = .all
+        } else {
+            currentFilter = filter
+        }
+        collectionView.reloadData()
+        updateEmptyState()
+        filtersButton.setTitleColor(currentFilter == .all ? .white : UIColor(named: "Red"), for: .normal)
+    }
 }
-
 // MARK: - UISearchBarDelegate
 
 extension TrackersViewController: UISearchBarDelegate {

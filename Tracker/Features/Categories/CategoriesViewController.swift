@@ -94,6 +94,7 @@ final class CategoriesViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.sectionHeaderTopPadding = 0
         tableView.rowHeight = 75
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNonzeroMagnitude))
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
