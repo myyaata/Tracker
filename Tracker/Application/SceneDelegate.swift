@@ -19,9 +19,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let trackerStore = TrackerStore(context: coreDataStack.context)
         let trackerCategoryStore = TrackerCategoryStore(context: coreDataStack.context)
         let trackerRecordStore = TrackerRecordStore(context: coreDataStack.context)
-        window.rootViewController = RootTabBarController(trackerStore: trackerStore,
-                                                         trackerCategoryStore: trackerCategoryStore,
-                                                         trackerRecordStore: trackerRecordStore)
+        let tabBar = RootTabBarController(trackerStore: trackerStore,
+                                          trackerCategoryStore: trackerCategoryStore,
+                                          trackerRecordStore: trackerRecordStore)
+        let key = "hasSeenOnboarding"
+        if UserDefaults.standard.bool(forKey: key) {
+            window.rootViewController = tabBar
+        } else {
+            let onboarding = OnboardingViewController()
+            onboarding.onFinish = { [weak self] in
+                UserDefaults.standard.set(true, forKey: key)
+                self?.window?.rootViewController = tabBar
+            }
+            window.rootViewController = onboarding
+        }
         self.window = window
         window.makeKeyAndVisible()
     }
