@@ -89,6 +89,16 @@ final class TrackersViewController: UIViewController {
         reloadFromStores()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AnalyticsService.report(event: .open, screen: "Main")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        AnalyticsService.report(event: .close, screen: "Main")
+    }
+    
     // MARK: - Navigation bar
     
     private func setupNavigationBar() {
@@ -255,6 +265,7 @@ final class TrackersViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func addButtonTapped() {
+        AnalyticsService.report(event: .click, screen: "Main", item: .addTrack)
         let vc = NewHabitViewController(categoryStore: categoryStore)
         vc.onCreate = { [weak self] tracker, category in
             self?.addTracker(tracker, categoryTitle: category)
@@ -337,6 +348,7 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func filtersButtonTapped() {
+        AnalyticsService.report(event: .click, screen: "Main", item: .filter)
         let vc = FiltersViewController(selectedFilter: currentFilter)
         vc.onSelect = { [weak self] filter in
             self?.applyFilter(filter)
@@ -433,12 +445,14 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
         
         return UIContextMenuConfiguration(actionProvider: { [weak self] _ in
             let edit = UIAction(title: NSLocalizedString("trackers.menu.edit", comment: "")) { _ in
+                AnalyticsService.report(event: .click, screen: "Main", item: .edit)
                 self?.editTracker(tracker)
             }
             let delete = UIAction(
                 title: NSLocalizedString("trackers.menu.delete", comment: ""),
                 attributes: .destructive
             ) { _ in
+                AnalyticsService.report(event: .click, screen: "Main", item: .delete)
                 self?.confirmDelete(tracker)
             }
             return UIMenu(children: [edit, delete])
@@ -511,6 +525,7 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - TrackerCellDelegate
 extension TrackersViewController: TrackerCellDelegate {
     func trackerCellDidTapCompleteButton(_ cell: TrackerCollectionViewCell) {
+        AnalyticsService.report(event: .click, screen: "Main", item: .track)
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         let tracker = visibleCategories[indexPath.section].trackers[indexPath.item]
         toggleCompletion(for: tracker)
