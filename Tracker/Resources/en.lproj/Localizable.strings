@@ -61,3 +61,5 @@
 "filters.today" = "Trackers for today";
 "filters.completed" = "Completed";
 "filters.uncompleted" = "Not completed";
+"statistics.empty" = "Nothing to analyze yet";
+"statistics.completed" = "Trackers completed";

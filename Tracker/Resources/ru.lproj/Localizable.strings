@@ -84,3 +84,6 @@
 "filters.today" = "Трекеры на сегодня";
 "filters.completed" = "Завершенные";
 "filters.uncompleted" = "Незавершённые";
+
+"statistics.empty" = "Анализировать пока нечего";
+"statistics.completed" = "Трекеров завершено";

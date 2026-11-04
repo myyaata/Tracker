@@ -51,7 +51,7 @@ final class RootTabBarController: UITabBarController {
         )
         let trackersNav = UINavigationController(rootViewController: trackers)
         
-        let statistics = StatisticsViewController()
+        let statistics = StatisticsViewController(trackerRecordStore: trackerRecordStore)
         statistics.tabBarItem = UITabBarItem(
             title: NSLocalizedString("tabbar.statistics", comment: ""),
             image: UIImage(systemName: "hare.fill")?.withRenderingMode(.alwaysTemplate),
