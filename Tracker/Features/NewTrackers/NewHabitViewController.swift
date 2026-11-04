@@ -126,7 +126,7 @@ final class NewHabitViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad( )
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "White [day]")
         setupTitle()
         setupButtons()
         setupScrollView()

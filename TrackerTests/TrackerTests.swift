@@ -19,5 +19,15 @@ final class TrackerTests: XCTestCase {
         )
         assertSnapshot(of: vc, as: .image(on: .iPhone13, traits: .init(userInterfaceStyle: .light)))
     }
+    
+    func testMainScreenDark() {
+        let stack = CoreDataStack(inMemory: true)
+        let vc = RootTabBarController(
+            trackerStore: TrackerStore(context: stack.context),
+            trackerCategoryStore: TrackerCategoryStore(context: stack.context),
+            trackerRecordStore: TrackerRecordStore(context: stack.context)
+        )
+        assertSnapshot(of: vc, as: .image(on: .iPhone13, traits: .init(userInterfaceStyle: .dark)))
+    }
 }
 

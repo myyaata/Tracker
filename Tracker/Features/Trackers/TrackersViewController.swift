@@ -75,7 +75,7 @@ final class TrackersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "White [day]")
         
         setupNavigationBar()
         setupSearchBar()
@@ -120,7 +120,7 @@ final class TrackersViewController: UIViewController {
     private func makeDateBadge() -> UIView {
         dateLabel.text = dateFormatter.string(from: selectedDate)
         dateLabel.font = .systemFont(ofSize: 17, weight: .regular)
-        dateLabel.textColor = .label
+        dateLabel.textColor = UIColor(named: "Black [day]")
         
         let container = UIView()
         
