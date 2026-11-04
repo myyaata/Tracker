@@ -1,0 +1,89 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by арина сильченко on 3.11.26.
+  
+*/
+
+/* Tab bar */
+"tabbar.trackers" = "Трекеры";
+"tabbar.statistics" = "Статистика";
+
+/* Trackers */
+"trackers.title" = "Трекеры";
+"trackers.search.placeholder" = "Поиск";
+"trackers.empty" = "Что будем отслеживать?";
+"trackers.notFound" = "Ничего не найдено";
+"trackers.menu.edit" = "Редактировать";
+"trackers.menu.delete" = "Удалить";
+"trackers.delete.confirm" = "Уверены что хотите удалить трекер?";
+"common.cancel" = "Отменить";
+
+/* Statistics */
+"statistics.title" = "Статистика";
+
+/* New habit */
+"newHabit.title" = "Новая привычка";
+"newHabit.name.placeholder" = "Введите название трекера";
+"newHabit.category" = "Категория";
+"newHabit.schedule" = "Расписание";
+"newHabit.emoji" = "Emoji";
+"newHabit.color" = "Цвет";
+"newHabit.cancel" = "Отменить";
+"newHabit.create" = "Создать";
+"newHabit.everyDay" = "Каждый день";
+"newHabit.editTitle" = "Редактирование привычки";
+"newHabit.save" = "Сохранить";
+
+/* Schedule */
+"schedule.title" = "Расписание";
+"schedule.done" = "Готово";
+
+/* Categories */
+"categories.title" = "Категория";
+"categories.empty" = "Привычки и события можно\nобъединить по смыслу";
+"categories.add" = "Добавить категорию";
+"categories.error.duplicate" = "Такая категория уже есть";
+"categories.error.save" = "Не удалось сохранить категорию";
+
+/* New category */
+"newCategory.title" = "Новая категория";
+"newCategory.placeholder" = "Введите название категории";
+"newCategory.done" = "Готово";
+
+/* Onboarding */
+"onboarding.page1" = "Отслеживайте только то, что хотите";
+"onboarding.page2" = "Даже если это не литры воды и йога";
+"onboarding.button" = "Вот это технологии!";
+
+/* Common */
+"common.ok" = "OK";
+
+/* Weekdays short */
+"weekday.short.monday" = "Пн";
+"weekday.short.tuesday" = "Вт";
+"weekday.short.wednesday" = "Ср";
+"weekday.short.thursday" = "Чт";
+"weekday.short.friday" = "Пт";
+"weekday.short.saturday" = "Сб";
+"weekday.short.sunday" = "Вс";
+
+/* Weekdays full */
+"weekday.full.monday" = "Понедельник";
+"weekday.full.tuesday" = "Вторник";
+"weekday.full.wednesday" = "Среда";
+"weekday.full.thursday" = "Четверг";
+"weekday.full.friday" = "Пятница";
+"weekday.full.saturday" = "Суббота";
+"weekday.full.sunday" = "Воскресенье";
+
+/* Filters */
+"filters.title" = "Фильтры";
+"filters.all" = "Все трекеры";
+"filters.today" = "Трекеры на сегодня";
+"filters.completed" = "Завершенные";
+"filters.uncompleted" = "Незавершённые";
+
+"statistics.empty" = "Анализировать пока нечего";
+"statistics.completed" = "Трекеров завершено";

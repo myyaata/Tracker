@@ -15,8 +15,8 @@ final class OnboardingViewController: UIPageViewController {
     var onFinish: (() -> Void)?
     
     private lazy var pages: [UIViewController] = [
-        OnboardingPageViewController(imageName: "onboarding_blue", title: "Отслеживайте только то, что хотите"),
-        OnboardingPageViewController(imageName: "onboarding_red", title: "Даже если это не литры воды и йога"),
+        OnboardingPageViewController(imageName: "onboarding_blue", title: NSLocalizedString("onboarding.page1", comment: "")),
+        OnboardingPageViewController(imageName: "onboarding_red", title: NSLocalizedString("onboarding.page2", comment: "")),
 
     ]
     
@@ -39,7 +39,7 @@ final class OnboardingViewController: UIPageViewController {
     }
     
     private func setupButton() {
-        button.setTitle( "Вот это технологии!", for: .normal)
+        button.setTitle(NSLocalizedString("onboarding.button", comment: ""), for: .normal)
         button.backgroundColor = UIColor(named: "Black [day]")
         button.setTitleColor(UIColor(named: "White [day]"), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)

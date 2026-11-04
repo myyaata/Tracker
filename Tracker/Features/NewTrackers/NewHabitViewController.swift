@@ -15,7 +15,7 @@ final class NewHabitViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    
+        
     private let emojis = ["🙂","😻","🌺","🐶","❤️","😱","😇","😡","🥶","🤔","🙌","🍔","🥦","🏓","🥇","🎸","🏝️","😪"]
     private let colorNames = (1...18).map { "Color selection \($0)" }
     
@@ -43,8 +43,13 @@ final class NewHabitViewController: UIViewController {
     
     private let categoryStore: TrackerCategoryStore
     
-    init(categoryStore: TrackerCategoryStore) {
+    private let mode: Mode
+    
+    private let daysLabel = UILabel()
+    
+    init(categoryStore: TrackerCategoryStore, mode: Mode = .create) {
         self.categoryStore = categoryStore
+        self.mode = mode
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -106,32 +111,54 @@ final class NewHabitViewController: UIViewController {
         var title: String {
             switch self {
             case .category:
-                return "Категория"
+                return NSLocalizedString("newHabit.category", comment: "")
             case .schedule:
-                return "Расписание"
+                return NSLocalizedString("newHabit.schedule", comment: "")
             }
         }
+    }
+    
+    enum Mode {
+        case create
+        case edit(tracker: Tracker, categoryTitle: String, completedDays: Int)
     }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad( )
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "White [day]")
         setupTitle()
         setupButtons()
         setupScrollView()
+        setupDaysLabel()
         setupNameField()
         setupTableView()
         setupEmojiCollectionView()
         setupColorCollectionView()
+        applyMode()
         updateCreateButtonState()
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
+    private func applyMode() {
+        switch mode {
+        case .create:
+            break
+        case let .edit(tracker, categoryTitle, _):
+            titleLabel.text = NSLocalizedString("newHabit.editTitle", comment: "")
+            createButton.setTitle(NSLocalizedString("newHabit.save", comment: ""), for: .normal)
+            nameTextField.text = tracker.name
+            chosenCategory = categoryTitle
+            schedule = Set(tracker.schedule)
+            chosenEmoji = tracker.emoji
+            chosenColorName = tracker.colorName
+        }
+    }
+    
     private func setupTitle() {
-        titleLabel.text = "Новая привычка"
+        titleLabel.text = NSLocalizedString("newHabit.title", comment: "")
         titleLabel.font = .systemFont(ofSize: 16, weight: .medium)
         titleLabel.textColor = UIColor(named: "Black [day]")
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -143,9 +170,26 @@ final class NewHabitViewController: UIViewController {
         ])
     }
     
+    private func setupDaysLabel() {
+        guard case let .edit(_, _, completedDays) = mode else { return }
+        daysLabel.font = .boldSystemFont(ofSize: 32)
+        daysLabel.textColor = UIColor(named: "Black [day]")
+        daysLabel.textAlignment = .center
+        daysLabel.text = String.localizedStringWithFormat(
+            NSLocalizedString("days.count", comment: ""),
+            completedDays
+        )
+        daysLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(daysLabel)
+        NSLayoutConstraint.activate([
+            daysLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 38),
+            daysLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+        ])
+    }
+    
     private func setupNameField() {
         nameTextField.attributedPlaceholder = NSAttributedString(
-            string: "Введите название трекера",
+            string: NSLocalizedString("newHabit.name.placeholder", comment: ""),
             attributes: [.foregroundColor: UIColor(named: "Gray") ?? .gray]
         )
         nameTextField.font = .systemFont(ofSize: 17)
@@ -162,8 +206,16 @@ final class NewHabitViewController: UIViewController {
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(nameTextField)
         
+        if case .edit = mode {
+            NSLayoutConstraint.activate([
+                nameTextField.topAnchor.constraint(equalTo: daysLabel.bottomAnchor, constant: 40),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                nameTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 38),
+            ])
+        }
         NSLayoutConstraint.activate([
-            nameTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 38),
             nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             nameTextField.heightAnchor.constraint(equalToConstant: 75)
@@ -185,7 +237,7 @@ final class NewHabitViewController: UIViewController {
         contentView.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 38),
+            tableView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 24),
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             tableView.heightAnchor.constraint(equalToConstant: CGFloat(SettingsRow.allCases.count) * 75)
@@ -193,7 +245,7 @@ final class NewHabitViewController: UIViewController {
     }
     
     private func setupEmojiCollectionView() {
-        emojiTitle.text = "Emoji"
+        emojiTitle.text = NSLocalizedString("newHabit.emoji", comment: "")
         emojiTitle.font = .systemFont(ofSize: 19, weight: .bold)
         emojiTitle.textColor = UIColor(named: "Black [day]")
         contentView.addSubview(emojiTitle)
@@ -211,7 +263,7 @@ final class NewHabitViewController: UIViewController {
     }
     
     private func setupColorCollectionView() {
-        colorsTitle.text = "Цвет"
+        colorsTitle.text = NSLocalizedString("newHabit.color", comment: "")
         colorsTitle.font = .systemFont(ofSize: 19, weight: .bold)
         colorsTitle.textColor = UIColor(named: "Black [day]")
         contentView.addSubview(colorsTitle)
@@ -230,7 +282,7 @@ final class NewHabitViewController: UIViewController {
     }
     
     private func setupButtons() {
-        cancelButton.setTitle("Отменить", for: .normal)
+        cancelButton.setTitle(NSLocalizedString("newHabit.cancel", comment: ""), for: .normal)
         cancelButton.setTitleColor(UIColor(named: "Red"), for: .normal)
         cancelButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         cancelButton.layer.cornerRadius = 16
@@ -239,7 +291,7 @@ final class NewHabitViewController: UIViewController {
         cancelButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
         
         createButton.backgroundColor = UIColor(named: "Black [day]")
-        createButton.setTitle("Создать", for: .normal)
+        createButton.setTitle(NSLocalizedString("newHabit.create", comment: ""), for: .normal)
         createButton.setTitleColor(UIColor(named: "White [day]"), for: .normal)
         createButton.setTitleColor(.white, for: .disabled)
         createButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
@@ -296,7 +348,7 @@ final class NewHabitViewController: UIViewController {
     
     private var scheduleSubtitle: String? {
         guard !schedule.isEmpty else { return nil }
-        if schedule.count == WeekDay.allCases.count { return "Каждый день" }
+        if schedule.count == WeekDay.allCases.count { return NSLocalizedString("newHabit.everyDay", comment: "") }
         return WeekDay.mondayFirst
             .filter { schedule.contains($0) }
             .map(\.shortTitle)
@@ -318,9 +370,14 @@ final class NewHabitViewController: UIViewController {
     
     @objc private func createTapped() {
         guard !trimmedName.isEmpty, !schedule.isEmpty, let category = chosenCategory, let colorName = chosenColorName, let emoji = chosenEmoji else { return }
-        
+        let id: UUID
+        if case let .edit(tracker, _, _) = mode {
+            id = tracker.id
+        } else {
+            id = UUID()
+        }
         let tracker = Tracker(
-            id: UUID(),
+            id: id,
             name: trimmedName,
             colorName: colorName,
             emoji: emoji,
