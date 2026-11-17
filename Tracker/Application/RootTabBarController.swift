@@ -45,15 +45,15 @@ final class RootTabBarController: UITabBarController {
     private func setupTabs() {
         let trackers = TrackersViewController(trackerStore: trackerStore, trackerCategoryStore: trackerCategoryStore, trackerRecordStore: trackerRecordStore)
         trackers.tabBarItem = UITabBarItem(
-            title: "Трекеры",
+            title: NSLocalizedString("tabbar.trackers", comment: ""),
             image: UIImage(systemName: "record.circle.fill")?.withRenderingMode(.alwaysTemplate),
             selectedImage: UIImage(systemName: "record.circle.fill")?.withRenderingMode(.alwaysTemplate),
         )
         let trackersNav = UINavigationController(rootViewController: trackers)
         
-        let statistics = StatisticsViewController()
+        let statistics = StatisticsViewController(trackerRecordStore: trackerRecordStore)
         statistics.tabBarItem = UITabBarItem(
-            title: "Статистика",
+            title: NSLocalizedString("tabbar.statistics", comment: ""),
             image: UIImage(systemName: "hare.fill")?.withRenderingMode(.alwaysTemplate),
             selectedImage: UIImage(systemName: "hare.fill")?.withRenderingMode(.alwaysTemplate),
         )

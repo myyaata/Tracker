@@ -43,9 +43,9 @@ final class CategoriesViewModel {
             try store.addCategory(title: title)
             return nil
         } catch TrackerCategoryStoreError.duplicateTitle {
-            return "Такая категория уже есть"
+            return NSLocalizedString("categories.error.duplicate", comment: "")
         } catch {
-            return "Не удалось сохранить категорию"
+            return NSLocalizedString("categories.error.save", comment: "")
         }
     }
 }

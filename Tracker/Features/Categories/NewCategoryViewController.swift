@@ -27,7 +27,7 @@ final class NewCategoryViewController: UIViewController {
     }
     
     private func setupTitle() {
-        titleLabel.text = "Новая категория"
+        titleLabel.text = NSLocalizedString("newCategory.title", comment: "")
         titleLabel.font = .systemFont(ofSize: 16, weight: .medium)
         titleLabel.textColor = UIColor(named: "Black [day]")
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +40,7 @@ final class NewCategoryViewController: UIViewController {
     
     private func setupNameField() {
         nameTextField.attributedPlaceholder = NSAttributedString(
-            string: "Введите название категории",
+            string: NSLocalizedString("newCategory.placeholder", comment: ""),
             attributes: [.foregroundColor: UIColor(named: "Gray") ?? .gray]
         )
         nameTextField.font = .systemFont(ofSize: 17)
@@ -71,7 +71,7 @@ final class NewCategoryViewController: UIViewController {
     
     private func setupCreateButton() {
         doneButton.backgroundColor = UIColor(named: "Black [day]")
-        doneButton.setTitle("Готово", for: .normal)
+        doneButton.setTitle(NSLocalizedString("newCategory.done", comment: ""), for: .normal)
         doneButton.setTitleColor(UIColor(named: "White [day]"), for: .normal)
         doneButton.setTitleColor(UIColor(named: "White [day]"), for: .disabled)
         doneButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
@@ -103,7 +103,7 @@ final class NewCategoryViewController: UIViewController {
 
     private func showError(_ message: String) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("common.ok", comment: ""), style: .default))
         present(alert, animated: true)
     }
 }
