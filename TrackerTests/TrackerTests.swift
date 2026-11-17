@@ -9,7 +9,7 @@ import XCTest
 import SnapshotTesting
 @testable import Tracker
 
-final class TrackerTests: XCTestCase {
+final class TrackersViewControllerSnapshotTests: XCTestCase {
     func testMainScreenLight() {
         let stack = CoreDataStack(inMemory: true)
         let vc = RootTabBarController(

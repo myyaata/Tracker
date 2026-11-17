@@ -246,13 +246,9 @@ final class TrackersViewController: UIViewController {
         collectionView.isHidden = isEmpty
         guard isEmpty else { return }
         
-        if hasTrackersForSelectedDay {
-            emptyStateImageView.image = UIImage(named: "search_empty_icon")
-            emptyStateLabel.text = NSLocalizedString("trackers.notFound", comment: "")
-        } else {
-            emptyStateImageView.image = UIImage(named: "trackers_empty_icon")
-            emptyStateLabel.text = NSLocalizedString("trackers.empty", comment: "")
-        }
+        let isEmptySearch = hasTrackersForSelectedDay
+        emptyStateImageView.image = UIImage(named: isEmptySearch ? "search_empty_icon" : "trackers_empty_icon")
+        emptyStateLabel.text = NSLocalizedString(isEmptySearch ? "trackers.notFound" : "trackers.empty", comment: "")
     }
     
     private var hasTrackersForSelectedDay: Bool {

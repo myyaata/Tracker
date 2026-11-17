@@ -15,9 +15,14 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        if let configuration = AppMetricaConfiguration(apiKey: "ccfc18ce-5cce-4d5c-b737-97cfb1049e5e") {
-            AppMetrica.activate(with: configuration)
+        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "APIKey") as? String,
+              !apiKey.isEmpty,
+              let configuration = AppMetricaConfiguration(apiKey: apiKey) else {
+            print("AppMetrica: API key not configured, analytics disabled")
+            DaysValueTransformer.register()
+            return true
         }
+        AppMetrica.activate(with: configuration)
         DaysValueTransformer.register()
         return true
     }
